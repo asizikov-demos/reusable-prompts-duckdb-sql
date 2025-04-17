@@ -26,7 +26,7 @@ We extracted the DuckDB SQL dialect documentation from [DuckDB Docs](https://duc
 
 The SQL reference remains quite verbose, with many examples and extra details that can overwhelm models.
 
-We used the Sonnect 3.7 Thinking model with the following prompt:
+We used the Sonnet 3.7 Thinking model with the following prompt:
 
 ```
 Your job is to read the #file:sql-dialect.md file that contains DuckDB syntax, based on the standard PostgreSQL flavor.
