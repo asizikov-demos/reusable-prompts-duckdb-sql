@@ -20,13 +20,13 @@ Without documentation, Copilot typically generates "Vanilla" SQL queries.
 
 [llmstxt.site](https://llmstxt.site/) hosts a collection of links to LLM-friendly documentation. 
 
-I extracted the DuckDB SQL dialect documentation from [DuckDB Docs](https://duckdb.org/duckdb-docs.md). However, the full reference is too extensive (over 50k lines) to use directly as a prompt. Instead, I cleaned it up by copying only the SQL reference from [docs-processing/sql-dialect.md](docs-processing/sql-dialect.md).
+We extracted the DuckDB SQL dialect documentation from [DuckDB Docs](https://duckdb.org/duckdb-docs.md). However, the full reference is too extensive (over 50k lines) to use directly as a prompt. Instead, we cleaned it up by copying only the SQL reference from [docs-processing/sql-dialect.md](docs-processing/sql-dialect.md).
 
 ## Compressing SQL Reference
 
 The SQL reference remains quite verbose, with many examples and extra details that can overwhelm models.
 
-I used the Sonnect 3.7 Thinking model with the following prompt:
+We used the Sonnect 3.7 Thinking model with the following prompt:
 
 ```
 Your job is to read the #file:sql-dialect.md file that contains DuckDB syntax, based on the standard PostgreSQL flavor.
