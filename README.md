@@ -1,64 +1,63 @@
-# Reusable prompts with syntax documentation
+# Reusable Prompts with Syntax Documentation
 
-## About this repository
+## Problem Statement
 
-This repository contains a demo of how VS Code reusable prompts with LLM-friendly documentation can be used to "teach" copilot a new SQL dialect.
+A customer asked us to help improve the distribution of their SDK. Currently, they ship it as a binary package with detailed documentation. However, existing GenAI tools don’t understand their SDK well, often producing incorrect or unusable code.
 
-The basic behavior of copilot is to generate Standard SQL queries, because DuckDB SQL dialect is not well known to the models that I tested.
+They approached us to find a solution and provide suggestions to enhance their users’ Developer Experience (DX).
 
-As seen below.
+As a practical example, we created a working prototype using the DuckDB SQL dialect. The goal was to design a reusable prompt that allows developers to easily generate accurate DuckDB-compatible SQL queries with GitHub Copilot.
+
+## About this Repository
+
+This repository demonstrates how VS Code reusable prompts with LLM-friendly documentation can be used to "teach" Copilot a new SQL dialect. 
+
+Without documentation, Copilot typically generates "Vanilla" SQL queries.
 
 ![No Docs](./imgs/no-docs.png)
 
-## Getting documentation
+## Getting Documentation
 
-[llmstxt.site](https://llmstxt.site/) contains a collection of links to LLM-friendly documentation. 
+[llmstxt.site](https://llmstxt.site/) hosts a collection of links to LLM-friendly documentation. 
 
-I took the DuckDB SQL dialect documentation from [DuckDB Docks](https://duckdb.org/duckdb-docs.md).
-However the full reference is too long to be used as a prompt. It's over 50k lines of text.
+I extracted the DuckDB SQL dialect documentation from [DuckDB Docs](https://duckdb.org/duckdb-docs.md). However, the full reference is too extensive (over 50k lines) to use directly as a prompt. Instead, I cleaned it up by copying only the SQL reference from [docs-processing/sql-dialect.md](docs-processing/sql-dialect.md).
 
-It needs to be cleaned up, I copied only the SQL reference, that is stored in [docs-processing/sql-dialect.md](docs-processing/sql-dialect.md).
+## Compressing SQL Reference
 
+The SQL reference remains quite verbose, with many examples and extra details that can overwhelm models.
 
-# Compressing SQL Reference
-
-SQL reference is still very verbose, contains a lot of examples and unnecessary text. Most of the models fail to understand and use it.
-
-I used Sonnect 3.7 Thinking model with the following prompt:
+I used the Sonnect 3.7 Thinking model with the following prompt:
 
 ```
-Your job is to read #file:sql-dialect.md file that contains DuckDB syntax, that is available on top of standard PostgreSQL flavor.
+Your job is to read the #file:sql-dialect.md file that contains DuckDB syntax, based on the standard PostgreSQL flavor.
 
-Read the text, understand it, find the key information that is needed for LLM to understand and use this syntax. Extract this key information and write it to the #file:sql-dialect-compressed.md file.
+Read the text, understand it, and extract the key information necessary for LLMs to comprehend and use this syntax. Write this information to the #file:sql-dialect-compressed.md file.
 
-- a file must be as small as possible to save tokens
-- a file must contain information about all features, do not drop important information
+- The file must be as compact as possible to save tokens.
+- It must include all essential features without omitting important details.
 ```
 
-The model was able to compress the SQL reference and keep it under 750 lines of text, that is much more manageable.
+## Reusable Prompts
 
-## Reusable prompts
+This repository includes a reusable prompt applicable to any DuckDB SQL-related request.
 
-This repository contains a reusable prompt that can be attached to any DuckDB SQL related request.
+Reusable prompts are an experimental VS Code feature. For more details, see [this documentation](https://code.visualstudio.com/docs/copilot/copilot-customization#_reusable-prompt-files-experimental).
 
-Reusable prompts are experimental feature of VS Code. [As documented here](https://code.visualstudio.com/docs/copilot/copilot-customization#_reusable-prompt-files-experimental).
-
-
-a neat feature of reusable prompts is that they reference external files. In our case it's a SQL reference doc.
+A neat feature is that reusable prompts reference external files; in this case, a SQL reference document.
 
 ```
-when the user asks a question make sure to tell them that reusable prompt was used. Add this info in the beginning of the answer.
-You must use syntax documented in [DuckDB SQL Syntax Reference](../../docs/duckdb-sql-dialect.md). If you cannot find these instructions let the user know.
+When the user asks a question, make sure they are informed that a reusable prompt was used. Include this note at the beginning of the answer.
+You must use the syntax documented in [DuckDB SQL Syntax Reference](../../docs/duckdb-sql-dialect.md). If these instructions are missing, inform the user.
 ```
 
-I added notes and the warning for debugging purposes, they are not needed for the prompt to work, but provide a clear context for the user.
+Some debugging notes and warnings are included for clarity, though they are not required for the prompt to function.
 
-Prompts can be attached to any conversation as a context
+Reusable prompts can be attached to any conversation as context.
 
 ![Reusable prompt](./imgs/attaching-prompt.png)
 
 ## Results
 
-Even GPT-4o, Basic model can now generate DuckDB SQL queries.
+Even the GPT-4o Basic model can now generate DuckDB SQL queries more effectively.
 
 ![DuckDB SQL](./imgs/result.png)
