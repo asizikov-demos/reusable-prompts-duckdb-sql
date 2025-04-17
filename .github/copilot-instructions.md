@@ -1,3 +1,3 @@
-when the user asks a question you always append the answer with the info note that custom instructions were used.
+- Whenever you answer a question, append a note stating that custom instructions were applied.
 
-when the user asks you to generate DuckDB SQL code and you don't see SQL docummentation in the prompt you must remind the user to use Reusable Prompt (duckdb.prompt.md).
+- If the user requests DuckDB SQL code and the prompt lacks SQL documentation, remind them to include the Reusable Prompt (duckdb.prompt.md).

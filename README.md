@@ -20,7 +20,7 @@ Without documentation, Copilot typically generates "Vanilla" SQL queries.
 
 [llmstxt.site](https://llmstxt.site/) hosts a collection of links to LLM-friendly documentation. 
 
-We extracted the DuckDB SQL dialect documentation from [DuckDB Docs](https://duckdb.org/duckdb-docs.md). However, the full reference is too extensive (over 50k lines) to use directly as a prompt. Instead, we cleaned it up by copying only the SQL reference from [docs-processing/sql-dialect.md](docs-processing/sql-dialect.md).
+We extracted the DuckDB SQL dialect documentation from [DuckDB Docs](https://duckdb.org/duckdb-docs.md). However, the full reference is too extensive (over 50k lines) to use directly as a prompt. Instead, we cleaned it up by copying only the SQL reference to the [docs-processing/sql-dialect.md](docs-processing/sql-dialect.md).
 
 ## Compressing SQL Reference
 
@@ -36,6 +36,8 @@ Read the text, understand it, and extract the key information necessary for LLMs
 - The file must be as compact as possible to save tokens.
 - It must include all essential features without omitting important details.
 ```
+
+The compressed file is located at [docs-processing/sql-dialect-compressed.md](docs-processing/sql-dialect-compressed.md).
 
 ## Reusable Prompts
 
@@ -55,6 +57,14 @@ Some debugging notes and warnings are included for clarity, though they are not 
 Reusable prompts can be attached to any conversation as context.
 
 ![Reusable prompt](./imgs/attaching-prompt.png)
+
+## Additional Improvements
+
+`copilot-instructions.md` file contains an instruction to remind users to utilize Reusable Prompts when DuckDB SQL code is requested.
+
+```txt
+- If the user requests DuckDB SQL code and the prompt lacks SQL documentation, remind them to include the Reusable Prompt (duckdb.prompt.md).
+```
 
 ## Results
 
