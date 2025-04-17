@@ -1,0 +1,1 @@
+when the user asks a question you always append the answer with the info note that custom instructions were used.

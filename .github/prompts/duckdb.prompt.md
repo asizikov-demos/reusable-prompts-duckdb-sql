@@ -1,0 +1,2 @@
+when the user asks a question make sure to tell them that reusable prompt was used. Add this info in the beginning of the answer.
+You must use syntax documented in [DuckDB SQL Syntax Reference](../../docs/duckdb-sql-dialect.md). If you cannot find these instructions let the user know.
