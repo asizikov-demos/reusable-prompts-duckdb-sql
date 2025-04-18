@@ -6,7 +6,7 @@ A customer asked us to help improve the distribution of their SDK. Currently, th
 
 They approached us to find a solution and provide suggestions to enhance their users’ Developer Experience (DX).
 
-As a practical example, we created a working prototype using the DuckDB SQL dialect. The goal was to design a reusable prompt that allows developers to easily generate accurate DuckDB-compatible SQL queries with GitHub Copilot.
+As a practical example, we created a working prototype using the DuckDB database cdocumentation. The goal was to design a reusable prompt that allows developers to easily generate accurate DuckDB-compatible SQL queries with GitHub Copilot.
 
 ## About this Repository
 
@@ -15,6 +15,12 @@ This repository demonstrates how VS Code reusable prompts with LLM-friendly docu
 Without documentation, Copilot typically generates "Vanilla" SQL queries.
 
 ![No Docs](./imgs/no-docs.png)
+
+As we can see a standard SQL `CREATE TABLE` instruction was suggested by Copilot.
+
+But we want Copilot to generate Friednly SQL flavored by code. 
+
+We expect it to suggest `CREATE OR REPLACE TABLE` syntax instead of `DROP TABLE IF EXISTS` and `CREATE TABLE` statements in scripts.
 
 ## Getting Documentation
 
